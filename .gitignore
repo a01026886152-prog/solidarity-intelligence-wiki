@@ -1,4 +1,5 @@
 uijeong/inbox/*
 !uijeong/inbox/.gitkeep
 uijeong/outputs/**/*.docx
+uijeong/outputs/**/*.hwpx
 __pycache__/

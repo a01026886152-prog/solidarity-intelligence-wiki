@@ -66,5 +66,5 @@ AskUserQuestion 한 번에 묻는다(자료나 메시지에서 분명한 것은 
 ## 9단계. 저장과 전달
 
 1. `uijeong/outputs/ordinance/YYYY-MM-DD-<제도명>.md`
-2. `python3 uijeong/scripts/md2docx.py <파일>.md` → SendUserFile(`display: attach`)
+2. 프로필의 **출력 형식**대로 변환한다: `python3 uijeong/scripts/md2hwpx.py <파일>.md` (한글), DOCX도 원하면 `md2docx.py` → SendUserFile(`display: attach`)
 3. 사용자에게 알린다: 법적 검토 결론, 확인 필요 조문 수, 협의가 필요한 기관(집행부 부서, 사회보장협의 대상 여부 등), 입법예고 등 다음 절차.

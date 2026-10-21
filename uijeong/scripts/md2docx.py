@@ -1,12 +1,10 @@
-"""의정지원 Markdown 문서를 DOCX로 바꾼다 (한글 프로그램에서 열어 HWP로 저장 가능).
+"""의정지원 Markdown 문서를 DOCX로 바꾼다.
 
 사용법:
     python3 uijeong/scripts/md2docx.py <입력.md> [출력.docx]
 
-지원 문법: 제목(#~####), 문단, 글머리표(-, *), 번호 목록(1.), 체크박스(- [ ]),
-인용(>), 표(| a | b |), 구분선(---), 굵게(**...**).
+지원 문법은 mdparse.py를 따른다.
 """
-import re
 import sys
 from pathlib import Path
 
@@ -16,8 +14,12 @@ from docx.enum.text import WD_ALIGN_PARAGRAPH
 from docx.oxml.ns import qn
 from docx.shared import Pt, RGBColor
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from mdparse import inline_runs, parse  # noqa: E402
+
 FONT = "맑은 고딕"
 BODY_PT = 10.5
+HEADING_PT = {1: 16, 2: 13.5, 3: 12, 4: 11}
 
 
 def _set_font(run, size=None, bold=None):
@@ -29,15 +31,9 @@ def _set_font(run, size=None, bold=None):
         run.bold = bold
 
 
-def _add_inline(paragraph, text, size=BODY_PT):
-    # **굵게** 구간을 나눠 런으로 넣는다. [[링크]]는 괄호만 걷어낸다.
-    text = re.sub(r"\[\[([^\]|]+)(?:\|([^\]]+))?\]\]", lambda m: m.group(2) or m.group(1), text)
-    text = re.sub(r"\[([^\]]+)\]\((https?://[^)]+)\)", r"\1(\2)", text)
-    text = re.sub(r"\[([^\]]+)\]\([^)]*\)", r"\1", text)  # 문서 내부·상대 링크는 글자만 남긴다
-    text = re.sub(r"`([^`]+)`", r"\1", text)
-    for i, part in enumerate(re.split(r"\*\*(.+?)\*\*", text)):
-        if part:
-            _set_font(paragraph.add_run(part), size, bold=(i % 2 == 1))
+def _add_inline(paragraph, text, size=BODY_PT, bold=False):
+    for part, is_bold in inline_runs(text):
+        _set_font(paragraph.add_run(part), size, bold=bold or is_bold)
 
 
 def _base_style(document):
@@ -52,67 +48,52 @@ def _base_style(document):
         heading.element.get_or_add_rPr().get_or_add_rFonts().set(qn("w:eastAsia"), FONT)
 
 
-def _flush_table(document, rows):
-    rows = [r for r in rows if not re.fullmatch(r"\|?\s*:?-{2,}:?\s*(\|\s*:?-{2,}:?\s*)*\|?", r.strip())]
-    cells = [[c.strip() for c in r.strip().strip("|").split("|")] for r in rows]
-    width = max(len(r) for r in cells)
-    table = document.add_table(rows=len(cells), cols=width)
+def _add_table(document, rows):
+    table = document.add_table(rows=len(rows), cols=len(rows[0]))
     table.style = "Table Grid"
     table.alignment = WD_TABLE_ALIGNMENT.CENTER
-    for i, row in enumerate(cells):
-        for j in range(width):
-            cell = table.cell(i, j)
-            cell.paragraphs[0].text = ""
-            _add_inline(cell.paragraphs[0], row[j] if j < len(row) else "", size=9.5)
-            if i == 0:
-                for run in cell.paragraphs[0].runs:
-                    run.bold = True
+    for i, row in enumerate(rows):
+        for j, text in enumerate(row):
+            paragraph = table.cell(i, j).paragraphs[0]
+            paragraph.text = ""
+            _add_inline(paragraph, text, size=9.5, bold=(i == 0))
     document.add_paragraph()
 
 
 def convert(md_path, docx_path):
     document = Document()
     _base_style(document)
-    table_rows = []
-    for raw in Path(md_path).read_text(encoding="utf-8").splitlines():
-        line = raw.rstrip()
-        if line.lstrip().startswith("|"):
-            table_rows.append(line)
-            continue
-        if table_rows:
-            _flush_table(document, table_rows)
-            table_rows = []
-        stripped = line.strip()
-        if not stripped or stripped.startswith("<!--"):
-            continue
-        if m := re.match(r"^(#{1,4})\s+(.*)", stripped):
-            level = len(m.group(1))
+    for block in parse(Path(md_path).read_text(encoding="utf-8")):
+        kind = block[0]
+        if kind == "heading":
+            _, level, text = block
             p = document.add_heading(level=level)
-            _add_inline(p, m.group(2), size={1: 16, 2: 13.5, 3: 12, 4: 11}[level])
+            _add_inline(p, text, size=HEADING_PT[level])
             if level == 1:
                 p.alignment = WD_ALIGN_PARAGRAPH.CENTER
-        elif re.fullmatch(r"-{3,}|\*{3,}", stripped):
+        elif kind == "rule":
             document.add_paragraph("─" * 40).alignment = WD_ALIGN_PARAGRAPH.CENTER
-        elif m := re.match(r"^(\s*)[-*]\s+\[( |x|X)\]\s+(.*)", line):
-            p = document.add_paragraph(style="List Bullet")
-            _add_inline(p, ("☑ " if m.group(2).strip() else "☐ ") + m.group(3))
-        elif m := re.match(r"^(\s*)[-*]\s+(.*)", line):
-            style = "List Bullet 2" if len(m.group(1)) >= 2 else "List Bullet"
-            _add_inline(document.add_paragraph(style=style), m.group(2))
-        elif m := re.match(r"^(\s*)(\d+)[.)]\s+(.*)", line):
+        elif kind == "check":
+            _, checked, text = block
+            _add_inline(document.add_paragraph(style="List Bullet"), ("☑ " if checked else "☐ ") + text)
+        elif kind == "bullet":
+            _, depth, text = block
+            _add_inline(document.add_paragraph(style="List Bullet 2" if depth else "List Bullet"), text)
+        elif kind == "number":
+            _, depth, number, text = block
             p = document.add_paragraph()
-            p.paragraph_format.left_indent = Pt(12 + 12 * (len(m.group(1)) // 2))
-            _add_inline(p, f"{m.group(2)}. {m.group(3)}")
-        elif stripped.startswith(">"):
+            p.paragraph_format.left_indent = Pt(12 + 12 * depth)
+            _add_inline(p, f"{number}. {text}")
+        elif kind == "quote":
             p = document.add_paragraph()
             p.paragraph_format.left_indent = Pt(18)
-            _add_inline(p, stripped.lstrip("> ").strip())
+            _add_inline(p, block[1])
             for run in p.runs:
                 run.italic = True
+        elif kind == "table":
+            _add_table(document, block[1])
         else:
-            _add_inline(document.add_paragraph(), stripped)
-    if table_rows:
-        _flush_table(document, table_rows)
+            _add_inline(document.add_paragraph(), block[1])
     document.save(docx_path)
 
 

@@ -73,10 +73,11 @@ AskUserQuestion 한 번에 아래를 묻는다(자료에서 답이 분명한 것
 ## 7단계. 저장과 전달
 
 1. `uijeong/outputs/audit/YYYY-MM-DD-<기관약칭들>.md`로 저장한다(오늘 날짜).
-2. 프로필에서 DOCX 생성이 "예"면 변환한다:
+2. 프로필의 **출력 형식**대로 변환한다(기본: 한글 HWPX, 필요하면 DOCX도):
    ```bash
-   python3 uijeong/scripts/md2docx.py uijeong/outputs/audit/<파일>.md
+   python3 uijeong/scripts/md2hwpx.py uijeong/outputs/audit/<파일>.md
+   python3 uijeong/scripts/md2docx.py uijeong/outputs/audit/<파일>.md   # DOCX도 원할 때
    ```
-3. SendUserFile로 DOCX를 보낸다(`display: attach`).
+3. SendUserFile로 HWPX(와 DOCX)를 보낸다(`display: attach`).
 4. 사용자에게 기관별 쟁점 수, 확인 필요 표시 개수, 추가로 받으면 좋을 자료를 짧게 알린다.
 5. 감사 아카이브 허브(`wiki/field-notes/2026-seoul-housing-committee-audit/README.md`)의 쟁점 추적표에 새 쟁점을 추가할지 묻는다.

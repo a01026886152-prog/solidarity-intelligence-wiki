@@ -66,7 +66,7 @@ AskUserQuestion 한 번에 묻는다.
 ## 7단계. 저장과 전달
 
 1. `uijeong/outputs/speech/YYYY-MM-DD-<주제>.md`
-2. `python3 uijeong/scripts/md2docx.py <파일>.md` → SendUserFile(`display: attach`)
+2. 프로필의 **출력 형식**대로 변환한다: `python3 uijeong/scripts/md2hwpx.py <파일>.md` (한글), DOCX도 원하면 `md2docx.py` → SendUserFile(`display: attach`)
 3. 사용자에게 본문 글자 수와 예상 낭독 시간, 근거가 약한 대목을 알린다.
 
 원고 서식은 [template.md](template.md)를 따른다.

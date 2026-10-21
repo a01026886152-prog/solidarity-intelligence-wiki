@@ -17,7 +17,7 @@
 2. 자료를 대화창에 올리거나 `uijeong/inbox/`에 넣는다.
 3. 명령을 부른다. 예: `/audit-issue-report 주택실이랑 SH 위주로`
 4. Claude가 범위를 묻는다(대상 기관, 질의 의원, 분량, 초점). 답하면 초안을 쓴다.
-5. 결과는 `uijeong/outputs/<유형>/`에 Markdown과 DOCX로 저장된다. DOCX는 한글에서 열어 HWP로 저장할 수 있다.
+5. 결과는 `uijeong/outputs/<유형>/`에 Markdown과 한글(HWPX) 파일로 저장된다. HWPX는 한글 2014 이상에서 바로 열리고, HWP로 다시 저장할 수 있다. DOCX가 필요하면 `profile.md`의 출력 형식을 바꾼다.
 
 처음 쓸 때는 [`profile.md`](profile.md)에 관점(의원실/시민단체)과 의원명을 적어 두면 묻는 횟수가 줄어든다.
 
@@ -32,6 +32,8 @@ uijeong/
 │   └── legal-basis.md      # 근거 법령 참고표, 상위법 저촉 체크리스트
 ├── scripts/
 │   ├── extract.py          # HWP/HWPX/PDF/DOCX → 텍스트
+│   ├── mdparse.py          # Markdown → 문서 블록 (두 변환기 공용)
+│   ├── md2hwpx.py          # Markdown → 한글(HWPX)
 │   ├── md2docx.py          # Markdown → DOCX
 │   └── requirements.txt
 ├── inbox/                  # 올린 자료 (git에 올리지 않음)

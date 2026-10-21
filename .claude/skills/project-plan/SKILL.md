@@ -59,5 +59,5 @@ AskUserQuestion 한 번에 묻는다.
 ## 8단계. 저장과 전달
 
 1. `uijeong/outputs/project-plan/YYYY-MM-DD-<사업명>.md`
-2. `python3 uijeong/scripts/md2docx.py <파일>.md` → SendUserFile(`display: attach`)
+2. 프로필의 **출력 형식**대로 변환한다: `python3 uijeong/scripts/md2hwpx.py <파일>.md` (한글), DOCX도 원하면 `md2docx.py` → SendUserFile(`display: attach`)
 3. 사용자에게 알린다: 총사업비, 확인 필요 단가 수, 거쳐야 할 사전 절차, 예산 요구 시기(본예산·추경).

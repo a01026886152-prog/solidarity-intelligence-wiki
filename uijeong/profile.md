@@ -26,4 +26,4 @@
 ## 출력
 
 - **저장 위치**: `uijeong/outputs/<문서유형>/YYYY-MM-DD-<주제>.md`
-- **DOCX 동시 생성**: 예
+- **출력 형식**: HWPX <!-- HWPX | HWPX, DOCX | DOCX -->
