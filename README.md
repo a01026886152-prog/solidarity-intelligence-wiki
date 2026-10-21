@@ -35,7 +35,8 @@ templates/
 ├── concept.md            # 개념 문서 템플릿
 ├── field-note.md         # 현장 기록 템플릿
 ├── how-to.md             # 실습 가이드 템플릿
-└── case-study.md         # 사례 연구 템플릿
+├── case-study.md         # 사례 연구 템플릿
+└── audit-session.md      # 행정사무감사 일차별 기록 템플릿
 ```
 
 ## 검수 기준
