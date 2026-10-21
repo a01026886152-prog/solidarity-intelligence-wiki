@@ -33,6 +33,7 @@ def _add_inline(paragraph, text, size=BODY_PT):
     # **굵게** 구간을 나눠 런으로 넣는다. [[링크]]는 괄호만 걷어낸다.
     text = re.sub(r"\[\[([^\]|]+)(?:\|([^\]]+))?\]\]", lambda m: m.group(2) or m.group(1), text)
     text = re.sub(r"\[([^\]]+)\]\((https?://[^)]+)\)", r"\1(\2)", text)
+    text = re.sub(r"\[([^\]]+)\]\([^)]*\)", r"\1", text)  # 문서 내부·상대 링크는 글자만 남긴다
     text = re.sub(r"`([^`]+)`", r"\1", text)
     for i, part in enumerate(re.split(r"\*\*(.+?)\*\*", text)):
         if part:
