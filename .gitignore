@@ -1,0 +1,8 @@
+uijeong/inbox/*
+!uijeong/inbox/.gitkeep
+uijeong/outputs/**/*.docx
+uijeong/outputs/**/*.hwpx
+__pycache__/
+uijeong/web/test/build-data.json
+uijeong/web/test/out/
+node_modules/
