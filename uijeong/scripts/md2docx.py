@@ -12,7 +12,7 @@ from docx import Document
 from docx.enum.table import WD_TABLE_ALIGNMENT
 from docx.enum.text import WD_ALIGN_PARAGRAPH
 from docx.oxml.ns import qn
-from docx.shared import Pt, RGBColor
+from docx.shared import Mm, Pt, RGBColor
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from mdparse import inline_runs, parse  # noqa: E402
@@ -37,6 +37,10 @@ def _add_inline(paragraph, text, size=BODY_PT, bold=False):
 
 
 def _base_style(document):
+    section = document.sections[0]
+    section.page_width, section.page_height = Mm(210), Mm(297)  # A4
+    section.left_margin = section.right_margin = Mm(25)
+    section.top_margin = section.bottom_margin = Mm(20)
     style = document.styles["Normal"]
     style.font.name = FONT
     style.font.size = Pt(BODY_PT)
