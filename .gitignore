@@ -1,0 +1,4 @@
+uijeong/inbox/*
+!uijeong/inbox/.gitkeep
+uijeong/outputs/**/*.docx
+__pycache__/
