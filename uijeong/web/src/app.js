@@ -26,7 +26,7 @@
 | 15개 단지 3천 세대가 넘는 | '25년 9월 기준 15개 단지, 3,166세대 미가입 | 자료 ② [공식자료 확인 필요] |`;
 
   const state = {
-    files: [], // {id, name, size, kind, text, status: "reading"|"ready"|"error", error}
+    files: [], // {id, name, size, kind, text, status: "reading"|"ready"|"error", error, mark, consent: null|"use"|"title"|"exclude"}
     type: null,
     summary: "",
     questions: [],
@@ -89,6 +89,8 @@
           if (!text.trim()) throw new Error("글자를 찾지 못했습니다. 스캔한 PDF라면 글자 인식(OCR)을 거친 파일을 올려 주세요.");
           item.text = text;
           item.kind = C.guessKind(file.name, text);
+          item.mark = C.restrictedMark(file.name, text);
+          item.consent = item.mark ? null : "use";
           item.status = "ready";
         })
         .catch((e) => {
@@ -102,15 +104,53 @@
     }
   }
 
+  const CONSENT_CHOICES = [
+    ["use", "확인함 — 내용까지 사용"],
+    ["exclude", "확인 안 함 — 이 자료는 빼고 작성"],
+    ["title", "파일 이름만 근거 목록에 남기기"],
+  ];
+  const TITLE_ONLY_TEXT = "(비공개 자료라 내용을 보내지 않았다. 근거 목록에 파일 이름만 적고, 이 자료를 근거로 쓰지 않는다.)";
+
+  /** 비공개 자료 확인 칸: 내부 규정상 외부 AI에 넣어도 되는지 확인했는지 묻는다. */
+  function consentBox(f) {
+    const box = document.createElement("div");
+    box.className = "consent";
+    box.setAttribute("role", "group");
+    const q = document.createElement("p");
+    q.textContent = `'${f.mark}' 표시가 있는 비공개 자료입니다. 내부 규정상 외부 AI(Claude)에 넣어도 되는지 확인하셨나요? 고르기 전에는 Claude에게 보내지 않습니다.`;
+    q.id = `consent-q-${f.id}`;
+    box.setAttribute("aria-labelledby", q.id);
+    const choices = document.createElement("div");
+    choices.className = "choices";
+    for (const [value, text] of CONSENT_CHOICES) {
+      const b = document.createElement("button");
+      b.type = "button";
+      b.textContent = text;
+      b.setAttribute("aria-pressed", String(f.consent === value));
+      b.addEventListener("click", () => {
+        f.consent = value;
+        renderFiles();
+        refresh();
+      });
+      choices.append(b);
+    }
+    box.append(q, choices);
+    return box;
+  }
+
   function renderFiles() {
     const ul = $("file-list");
+    const sent = sentFiles();
     ul.replaceChildren(
-      ...state.files.map((f, i) => {
+      ...state.files.map((f) => {
         const li = document.createElement("li");
         if (f.status === "error") li.className = "error";
+        else if (f.mark && !f.consent) li.className = "pending";
+        else if (f.consent === "exclude") li.className = "excluded";
         const tag = document.createElement("span");
         tag.className = "tag";
-        tag.textContent = C.label(i);
+        const n = sent.indexOf(f);
+        tag.textContent = n >= 0 ? C.label(n) : "–";
         const name = document.createElement("div");
         const title = document.createElement("div");
         title.className = "name";
@@ -118,7 +158,9 @@
         const meta = document.createElement("div");
         meta.className = "meta";
         meta.textContent =
-          f.status === "reading" ? "읽는 중…" : f.status === "error" ? f.error : `${f.text.length.toLocaleString("ko-KR")}자`;
+          f.status === "reading" ? "읽는 중…"
+          : f.status === "error" ? f.error
+          : `${f.text.length.toLocaleString("ko-KR")}자${f.consent === "exclude" ? " · 보내지 않음" : f.consent === "title" ? " · 파일 이름만 보냄" : ""}`;
         name.append(title, meta);
         const kind = document.createElement("select");
         kind.setAttribute("aria-label", `${f.name} 자료 성격`);
@@ -136,12 +178,16 @@
           refresh();
         });
         li.append(tag, name, kind, remove);
+        if (f.status === "ready" && f.mark) li.append(consentBox(f));
         return li;
       })
     );
   }
 
   const readyFiles = () => state.files.filter((f) => f.status === "ready");
+  /** Claude에게 보낼 자료: 비공개 자료는 사용자가 고른 경우만(빼기를 고른 것은 제외). */
+  const sentFiles = () => readyFiles().filter((f) => f.consent === "use" || f.consent === "title");
+  const pendingFiles = () => readyFiles().filter((f) => f.mark && !f.consent);
 
   /* ───────── 2. 문서 종류 ───────── */
 
@@ -171,7 +217,11 @@
       type: state.type,
       request: $("request").value.trim(),
       profile: profile(),
-      sources: readyFiles().map((f) => ({ name: f.name, kind: f.kind, text: f.text })),
+      sources: sentFiles().map((f) =>
+        f.consent === "title"
+          ? { name: f.name, kind: f.kind, text: TITLE_ONLY_TEXT, note: "비공개 자료: 내용 미사용" }
+          : { name: f.name, kind: f.kind, text: f.text }
+      ),
       data: DATA,
     };
   }
@@ -388,7 +438,7 @@
       box.replaceChildren();
       return;
     }
-    const sources = readyFiles().map((f) => f.text);
+    const sources = sentFiles().filter((f) => f.consent === "use").map((f) => f.text);
     const p = profile();
     const missing = C.checkNumbers(state.markdown, [...sources, DATA.committee, DATA.legal, today(), Object.values(p).join(" "), $("request").value]);
     const flags = C.countFlags(state.markdown);
@@ -507,11 +557,13 @@
   }
 
   function refresh() {
-    const hasFiles = readyFiles().length > 0;
+    const pending = pendingFiles().length > 0;
+    const hasFiles = sentFiles().length > 0 && !pending;
     const reading = state.files.some((f) => f.status === "reading");
     const canAsk = Boolean(sample) && hasFiles && !reading && Boolean(state.type) && !state.busy;
     $("ask-btn").disabled = !canAsk;
     $("write-btn").disabled = !(Boolean(sample) && hasFiles && state.type && !state.busy && (state.questions.length || state.summary));
+    $("consent-status").textContent = pending ? "비공개 자료 확인이 남았습니다. 위에서 자료마다 골라 주세요." : "";
     const done = Boolean(state.markdown) && !state.busy;
     for (const id of ["dl-hwpx", "dl-docx", "dl-md", "copy-md"]) $(id).disabled = !done;
     $("step-questions").setAttribute("aria-disabled", String(!(state.questions.length || state.summary)));

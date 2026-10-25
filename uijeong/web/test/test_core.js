@@ -40,6 +40,17 @@ const toBuf = (file) => {
   assert.ok(fitted.trimmed && fitted.text.length <= 5000 && fitted.text.includes("청년안심주택 보증금 7"));
   console.log("ok  긴 자료에서 관련 대목 추리기");
 
+  // 3-1. 비공개 표시 찾기와 '파일 이름만' 자료 표기
+  assert.strictEqual(C.restrictedMark("2026 업무보고(대외비).hwp", "본문"), "대외비");
+  assert.strictEqual(C.restrictedMark("자료.pdf", "표지\n내부 용 — 외부 유출 금지"), "내부 용");
+  assert.strictEqual(C.restrictedMark("업무보고.hwp", "2026년 주택실 업무보고"), "");
+  const titleOnly = C.questionPrompt({
+    type: "audit-issue-report", request: "", profile: {}, data: DATA,
+    sources: [{ name: "대외비.hwp", kind: "공식", text: "(내용 미전송)", note: "비공개 자료: 내용 미사용" }],
+  });
+  assert.ok(titleOnly.includes('비고="비공개 자료: 내용 미사용"'));
+  console.log("ok  비공개 표시 찾기, 파일 이름만 보내기");
+
   // 4. 지시문 크기: 큰 자료 두 개로 한도 안에 맞는다
   const big = process.argv.slice(2).map((f) => ({ name: path.basename(f), kind: "공식", text: fs.readFileSync(path.join(OUT, path.basename(f) + ".txt"), "utf8") }));
   if (big.length) {
