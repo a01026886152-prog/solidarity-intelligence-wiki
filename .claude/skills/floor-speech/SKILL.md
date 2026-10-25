@@ -18,7 +18,7 @@ description: 본회의 5분 자유발언 원고와 시정질문 원고(일문일
 
 ## 2단계. 자료 받기와 추출
 
-[audit-issue-report 2단계](../audit-issue-report/SKILL.md)와 같다. `uijeong/outputs/`의 기존 쟁점보고서·검토서가 같은 주제를 다뤘으면 그것도 근거로 쓴다.
+[audit-issue-report 2단계](../audit-issue-report/SKILL.md)와 같다. 비공개 자료가 있으면 [비공개 자료 확인](../audit-issue-report/SKILL.md#비공개-자료-확인)을 먼저 거친다. `uijeong/outputs/`의 기존 쟁점보고서·검토서가 같은 주제를 다뤘으면 그것도 근거로 쓴다.
 
 ## 3단계. 범위 묻기
 
@@ -60,6 +60,7 @@ AskUserQuestion 한 번에 묻는다.
   ```
 - [ ] 원고의 모든 숫자가 각주의 원 수치·출처와 맞다.
 - [ ] 확인되지 않은 의혹을 사실처럼 단정하지 않았다.
+- [ ] 비공개 자료는 사용자가 내부 규정 확인에 답한 범위 안에서만 썼다.
 - [ ] 일반인 실명·개인정보가 없다.
 - [ ] 시정질문의 시간 배분 합계가 질문 시간 안이다.
 
