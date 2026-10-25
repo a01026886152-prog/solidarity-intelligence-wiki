@@ -2,6 +2,8 @@ uijeong/inbox/*
 !uijeong/inbox/.gitkeep
 uijeong/outputs/**/*.docx
 uijeong/outputs/**/*.hwpx
+# 자료함(내부 자료)이 들어간 검색 답변은 PC에만 둔다
+uijeong/outputs/research/
 __pycache__/
 uijeong/web/test/build-data.json
 uijeong/web/test/out/
