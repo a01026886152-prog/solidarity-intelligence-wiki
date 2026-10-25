@@ -245,6 +245,13 @@
     return "기타";
   }
 
+  /** 파일 이름과 첫머리에서 비공개 표시를 찾아 그 낱말을 돌려준다. 없으면 빈 문자열. */
+  const RESTRICTED = /비공개|부분\s?공개|대외비|내부\s?용|열람\s?제한|(?:외부|대외)\s?유출\s?금지|취급\s?주의/;
+  function restrictedMark(name, text) {
+    const m = (name + " " + text.slice(0, 1500)).match(RESTRICTED);
+    return m ? m[0] : "";
+  }
+
   /* ───────────── 자료 분량 맞추기 ───────────── */
 
   /** 긴 자료에서 열쇠말이 많이 나오는 대목을 골라 budget 글자 안에 맞춘다. 원래 순서는 지킨다. */
@@ -321,7 +328,7 @@
     return sources
       .map(
         (s, i) =>
-          `<자료 번호="${label(i)}" 파일="${s.name}" 성격="${s.kind}"${s.trimmed ? ' 비고="길어서 관련 대목만 추림"' : ""}>\n${s.text}\n</자료>`
+          `<자료 번호="${label(i)}" 파일="${s.name}" 성격="${s.kind}"${s.note ? ` 비고="${s.note}"` : s.trimmed ? ' 비고="길어서 관련 대목만 추림"' : ""}>\n${s.text}\n</자료>`
       )
       .join("\n\n");
   }
@@ -642,7 +649,7 @@
 
   const api = {
     parseMarkdown, inlineRuns, markdownToHtml, escapeXml,
-    extractText, extractHwp, extractHwpx, extractDocx, extractPdf, guessKind,
+    extractText, extractHwp, extractHwpx, extractDocx, extractPdf, guessKind, restrictedMark,
     selectRelevant, fitSources, keywordsFor, buildWithinLimit,
     questionPrompt, writePrompt, CONTINUE_PROMPT, DOC_TYPES, utf8Bytes, label,
     checkNumbers, countFlags, speechLength,
