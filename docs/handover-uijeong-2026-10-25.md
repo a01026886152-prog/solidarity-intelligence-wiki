@@ -46,7 +46,7 @@ PC의 Claude Desktop 앱과 Claude in Chrome을 연결해, 지원시스템 행�
 3. **비공개 판단 기준 넓히기(사용자 결정 대기)** — 첫 시험 때 출처에 '내부 규정' 종류 자료가 섞였다. 이런 자료도 늘 묻게 할지. 정하면 `audit-issue-report/SKILL.md`의 '비공개 자료 확인'과 `policy-research`, 웹 화면의 표시 낱말을 함께 고친다.
 4. **해일심·랑랑별 역할 해석 확인(사용자 답 대기)** — 다르게 의도했으면 `CLAUDE.md`와 `.claude/agents/rangrang-byeol.md`를 고친다.
 
-5. **Chrome 툴바의 Claude 패널은 페이지 읽기가 실패함(2026-10-26 확인)** — 패널은 열리고 대답도 하지만, 네이버에서 요소 찾기·페이지 텍스트 읽기가 실패했다. `chrome://policy`에 조직 정책 `ScreenCaptureAllowed = false`가 있어 가장 유력한 원인으로 본다(문서 보안 프로그램 정책으로 추정, 확인 안 됨). 확장 프로그램을 막는 정책(`ExtensionSettings`)은 없었다. Desktop 앱 → Chrome 조작(자료함 검색)은 2026-10-25에 정상 동작했으니 의정지원 작업은 Desktop 앱에서 한다. 패널이 꼭 필요하면 전산 담당에게 정책 예외를 문의한다.
+5. **Chrome 툴바의 Claude 패널은 페이지 읽기가 실패함(2026-10-26 확인)** — 패널은 열리고 대답도 하지만, 네이버에서 요소 찾기·페이지 텍스트 읽기가 실패했다. `chrome://policy`에 조직 정책 `ScreenCaptureAllowed = false`가 있어 가장 유력한 원인으로 본다(문서 보안 프로그램 정책으로 추정, 확인 안 됨). 확장 프로그램을 막는 정책(`ExtensionSettings`)은 없었다. Desktop 앱 → Chrome 조작(자료함 검색)은 2026-10-25에 정상 동작했으니 의정지원 작업은 Desktop 앱에서 한다. 패널이 꼭 필요하면 전산 담당에게 정책 예외를 문의한다. **정정(같은 날 오후)**: 이후 패널이 지원시스템에서 작업 10개를 실행해 한강버스 질의서(Claude Docs 문서)를 만들었다. 오전의 실패는 일시적이었을 수 있고, `ScreenCaptureAllowed`가 원인이라는 추정은 약해졌다.
 
 ### 사용자가 직접 해야 할 일
 
