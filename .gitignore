@@ -5,7 +5,7 @@ uijeong/outputs/**/*.hwpx
 # 자료함(내부 자료)이 들어간 검색 답변은 PC에만 둔다
 uijeong/outputs/research/
 # 검수AI 랑랑별의 검수 보고서는 PC에만 둔다 (결과는 문서 끝 '검수 기록'에 남는다)
-*.검수.md
+*.검수*.md
 __pycache__/
 uijeong/web/test/build-data.json
 uijeong/web/test/out/
