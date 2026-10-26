@@ -118,7 +118,7 @@ Chrome에 새 탭이 열리고 화면 내용을 설명하면 연결된 것이다
 | 2 | 자료함·뉴스 검색 스킬 | [`.claude/skills/policy-research/SKILL.md`](../.claude/skills/policy-research/SKILL.md) | 2~3단계, '기관 카드 고르기와 검색', 7단계 | 2026-10-25 |
 | 3 | 의정지원 자동화 시스템 안내 | [`uijeong/README.md`](../uijeong/README.md) | '자료함 검색 (`/policy-research`)' | 2026-10-25 |
 | 4 | 정리해 사용법 | [`docs/wrap-up-command.md`](wrap-up-command.md) | 전체 | 2026-10-25 |
-| 5 | Claude 확장 프로그램 | [출처: Claude, Chrome 웹 스토어](https://chromewebstore.google.com/detail/claude/fcoeoabgfenejglbffodgkkbkcdhcgfn) | 상세 페이지(게시자 표시 claude.com) | 2026-10-25, 사용자 화면 캡처 |
+| 5 | Claude 확장 프로그램 (공식 안내: [Get started with Claude in Chrome, Anthropic 고객지원](https://support.claude.com/en/articles/12012173-get-started-with-claude-in-chrome)) | [출처: Claude, Chrome 웹 스토어](https://chromewebstore.google.com/detail/claude/fcoeoabgfenejglbffodgkkbkcdhcgfn) | 상세 페이지(게시자 표시 claude.com) | 2026-10-25, 사용자 화면 캡처 |
 | 6 | 정책지원관 지원시스템 | `https://talk.sakyowon.co.kr/system` (로그인 필요) | 로그인 화면 안내문, 왼쪽 메뉴 '의정활동 > 행감 자료실' | 2026-10-25, 사용자 화면 캡처 |
 | 7 | 2026-10-25 설정·시험 기록 | Claude Desktop 앱 > Code > 최근 항목 > **'클로드크롬 연결'** 세션 대화(사용자가 보낸 PowerShell·Chrome·Desktop 앱 화면 캡처 포함). PC 세션 결과는 같은 목록의 **'Chrome 열린 탭 목록'**, **'청년안심주택 공실 현황 및 자료'**, **'너 누구야?'** 세션 | 해당 세션 대화 전체 | 2026-10-25 |
 | 8 | git 관리 대상 설정 | [`.gitignore`](../.gitignore) (`uijeong/outputs/research/`, `*.검수.md`가 들어 있고 `profile.md`는 없음) | 전체 | 2026-10-25 |
@@ -131,4 +131,6 @@ Chrome에 새 탭이 열리고 화면 내용을 설명하면 연결된 것이다
 - 1차 검수: 랑랑별 · 2026-10-25 · 지적 높음 1 / 중간 4 / 낮음 6 · 고친 수 10
   - 고친 것: `profile.md`를 GitHub에 올리지 않는다는 틀린 설명 정정, `/audit-issue-report` 연결을 '제안됨·시험 안 함'으로 정정, 시험표 ③⑤⑧을 캡처 근거로 다시 쓰고 ⑧은 Claude의 자기 보고로 표시, 본문에 `[근거 n]` 표시 추가, 캡처 근거(근거 7)를 찾아갈 수 있는 위치로 바꿈, 웹 스토어 출처 형식 정리, '일반이용자' 표현을 안내문 원문으로 바꿈
   - 고치지 않은 것: 저장소 주소의 계정 이름(사용자 본인 공개 계정이라 그대로 둠)
+- 2차 검수: 랑랑별 · 2026-10-26 · 통과(조건부) · 지적 높음 0 / 중간 0 / 낮음 3
+  - 조건이던 인용·세부(시험표 ①③④⑤⑨, 신뢰 창, '저절로 풀렸다', `claude.ai/chrome/installed`, 'Chrome에서 삭제')는 해일심이 사용자 캡처와 하나씩 대조해 모두 일치함을 확인함
 - 남은 확인 필요: Chrome 웹 스토어 링크는 랑랑별이 직접 열지 못함(웹 검색과 사용자 캡처로 부분 확인). 지원시스템 화면은 로그인이 필요해 사용자 캡처로만 확인.

@@ -15,7 +15,7 @@ PC의 Claude Desktop 앱과 Claude in Chrome을 연결해, 지원시스템 행�
 | `b79c468` `338226f` `ccece29` `e00b4f0` / [#3](https://github.com/a01026886152-prog/solidarity-intelligence-wiki/pull/3) | `/policy-research` 스킬 추가. 비공개·대외비 표시 자료는 쓰기 전에 내부 규정 확인 여부를 묻는 단계를 모든 스킬과 웹 화면에 넣음(웹 화면은 다시 게시함) |
 | `d4321b6` / [#4](https://github.com/a01026886152-prog/solidarity-intelligence-wiki/pull/4) | 자료함 검색을 행감 자료실의 기관 카드 구조에 맞춤(주제에 맞는 카드 1~3개를 골라 카드 안에서 검색, 출처에 기관 표시) |
 | `ba4e5b1` `df76925` / [#5](https://github.com/a01026886152-prog/solidarity-intelligence-wiki/pull/5) | 결과를 항상 Markdown으로 저장(`uijeong/outputs/research/`, `*.검수.md`는 GitHub 제외). `CLAUDE.md`에 해일심·랑랑별 역할, 근거 자료 표시, 검수 절차, `정리해` 규칙. 랑랑별 서브에이전트, `wrap-up` 스킬, `docs/wrap-up-command.md` 추가 |
-| `75eb0a9` (브랜치 `claude/pensive-edison-mkabwp`, 아직 PR 없음) | `docs/claude-chrome-setup-guide.md` — 연결·시험 가이드. 랑랑별 1차 검수 지적을 고친 판은 같은 브랜치에 이어서 올라감 |
+| `75eb0a9` `cfe5356` `41a067d` / [#6](https://github.com/a01026886152-prog/solidarity-intelligence-wiki/pull/6) | `docs/claude-chrome-setup-guide.md` 연결·시험 가이드(랑랑별 1·2차 검수 반영), 이 핸드오버, 위키 how-to. 검수 보고서 2번째 판도 GitHub에서 빠지게 `.gitignore`를 `*.검수*.md`로 넓힘 |
 
 ## 내린 결정과 이유
 
@@ -33,7 +33,7 @@ PC의 Claude Desktop 앱과 Claude in Chrome을 연결해, 지원시스템 행�
 | 검수AI 랑랑별 | `.claude/agents/rangrang-byeol.md` |
 | 자료함·뉴스 검색 스킬 | `.claude/skills/policy-research/SKILL.md`, `template.md` |
 | 정리해 스킬 | `.claude/skills/wrap-up/SKILL.md`, `handover-template.md` |
-| 연결·시험 가이드 | `docs/claude-chrome-setup-guide.md` (브랜치 `claude/pensive-edison-mkabwp`) |
+| 연결·시험 가이드 | `docs/claude-chrome-setup-guide.md` |
 | 정리해 사용법 | `docs/wrap-up-command.md` |
 | PC 저장소 | `C:\Users\user\Documents\solidarity-intelligence-wiki` |
 | PC에서만 고친 설정(지원시스템 주소, 자료함 위치) | PC의 `uijeong/profile.md` — 커밋하지 않음. git 관리 파일이라 커밋하면 GitHub에 올라감 |
@@ -42,16 +42,15 @@ PC의 Claude Desktop 앱과 Claude in Chrome을 연결해, 지원시스템 행�
 ## 남은 작업
 
 1. **시험 마저 하기** — 비공개 표시 자료를 열기 전에 묻는지(⑥), 해일심이 문서를 만들 때 랑랑별을 부르고 검수 기록을 붙이는지(⑩), PC 세션에서 `정리해`가 도는지(⑪)를 PC 새 세션에서 확인한다. 시험표: `docs/claude-chrome-setup-guide.md` 5절.
-2. **연결·시험 가이드 마무리** — 랑랑별 2차 검수가 사용량 한도로 중단됨. 2차 검수를 받은 뒤 PR을 만들어 머지한다.
-3. **웹 화면 다시 묶기(선택)** — #4·#5에서 스킬 문구가 바뀌었지만 `uijeong/web/dist`를 다시 묶지 않았다. 웹 화면 동작에는 영향이 없다. 필요하면 `python3 uijeong/web/build.py` 후 같은 주소에 다시 게시한다.
-4. **비공개 판단 기준 넓히기(사용자 결정 대기)** — SH '임대규정시행내규'처럼 '내부 규정' 자료도 늘 묻게 할지. 정하면 `audit-issue-report/SKILL.md`의 '비공개 자료 확인'과 `policy-research`, 웹 화면의 표시 낱말을 함께 고친다.
-5. **해일심·랑랑별 역할 해석 확인(사용자 답 대기)** — 다르게 의도했으면 `CLAUDE.md`와 `.claude/agents/rangrang-byeol.md`를 고친다.
+2. **웹 화면 다시 묶기(선택)** — 웹 화면은 스킬 4개(행감·조례안·사업계획서·발언)만 묶는다(`uijeong/web/build.py`의 `SKILLS`, `policy-research`는 없음). #5에서 이 4개에 '랑랑별 검수' 체크리스트 한 줄이 늘었지만 웹 화면에는 아직 빠져 있다. 웹 화면은 랑랑별을 부를 수 없어 실제 동작 차이는 작다. 맞추려면 `python3 uijeong/web/build.py` 후 같은 주소에 다시 게시한다.
+3. **비공개 판단 기준 넓히기(사용자 결정 대기)** — 첫 시험 때 출처에 '내부 규정' 종류 자료가 섞였다. 이런 자료도 늘 묻게 할지. 정하면 `audit-issue-report/SKILL.md`의 '비공개 자료 확인'과 `policy-research`, 웹 화면의 표시 낱말을 함께 고친다.
+4. **해일심·랑랑별 역할 해석 확인(사용자 답 대기)** — 다르게 의도했으면 `CLAUDE.md`와 `.claude/agents/rangrang-byeol.md`를 고친다.
 
 ### 사용자가 직접 해야 할 일
 
 - 오늘 브리핑의 숫자(예: 기사 속 보증금 미반환 금액)를 기사·자료 원문과 직접 대조하기
 - PC의 '변경 사항' 패널에서 **PR 생성**을 누르지 않기(`profile.md`가 올라감)
-- Chrome 작업 표시줄·툴바 고정, 지원시스템 바로가기 만들기(방법은 이 세션에서 안내함)
+- Chrome 작업 표시줄·툴바 고정, 지원시스템 바로가기 만들기(방법은 '클로드크롬 연결' 세션에서 안내함)
 
 ## 다음에 이어서 할 때
 
@@ -70,7 +69,7 @@ Git 설치 → 저장소 clone → Desktop 앱 '이 컴퓨터' 세션에서 폴�
 ## 레슨
 
 ### 1. Claude in Chrome은 자기 탭 그룹만 본다
-'Chrome에 열린 탭 목록'으로 연결을 확인하려 했더니 목록이 비어 있었다. 보안상 사용자가 연 탭은 보이지 않는다. 연결 확인은 "주소를 새 탭으로 열고 화면을 설명해 줘"로 하고, 로그인도 Claude가 연 탭에서 한다.
+'Chrome에 열린 탭 목록'으로 연결을 확인하려 했더니 목록이 비어 있었다. Claude는 자기 탭 그룹 안에서 작업하고, 사용자가 연 탭은 보이지 않는다([출처: Get started with Claude in Chrome, Anthropic 고객지원](https://support.claude.com/en/articles/12012173-get-started-with-claude-in-chrome), 랑랑별 확인). 연결 확인은 "주소를 새 탭으로 열고 화면을 설명해 줘"로 하고, 로그인도 Claude가 연 탭에서 한다.
 
 ### 2. 브라우저와 세션 종류부터 확인한다
 확장 프로그램 페이지를 Edge에서 열거나, claude.ai 웹 채팅·클라우드 세션에서 시험하려다 막혔다. 'Chrome인가', 'Desktop 앱의 이 컴퓨터 세션인가'를 먼저 화면으로 확인하면 헛걸음이 준다.
@@ -97,4 +96,6 @@ Git 설치 → 저장소 clone → Desktop 앱 '이 컴퓨터' 세션에서 폴�
 
 ## 검수 기록
 
-- 검수자: 랑랑별 · (검수 후 채움)
+- 검수자: 랑랑별 · 2026-10-26 · 지적 높음 0 / 중간 1 / 낮음 5 · 고친 수 6
+  - 고친 것: 연결 가이드 커밋 상태를 실제 해시(`cfe5356`, PR #6)로 정정, 웹 화면 영향 설명 정정, 레슨 1에 공식 도움말 출처, 공개 문서에서 자료함 파일명 삭제, 안내 위치를 세션 이름으로, 검수 기록 작성
+- 남은 확인 필요: 없음
