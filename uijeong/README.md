@@ -33,7 +33,7 @@ Claude Code 없이 브라우저에서 쓰는 화면이다: https://claude.ai/art
 2. 자료를 대화창에 올리거나 `uijeong/inbox/`에 넣는다.
 3. 명령을 부른다. 예: `/audit-issue-report 주택실이랑 SH 위주로`
 4. Claude가 범위를 묻는다(대상 기관, 질의 의원, 분량, 초점). 답하면 초안을 쓴다.
-5. 결과는 `uijeong/outputs/<유형>/`에 Markdown과 한글(HWPX) 파일로 저장된다. 완성된 문서와 근거 발췌집은 **바탕화면 `의정지원 문서\날짜 주제\` 폴더**에도 자동으로 복사된다(바탕화면이 OneDrive와 동기화되면 처음 한 번 묻는다). HWPX는 한글 2014 이상에서 바로 열리고, HWP로 다시 저장할 수 있다. DOCX가 필요하면 `profile.md`의 출력 형식을 바꾼다.
+5. 결과는 `uijeong/outputs/<유형>/`에 Markdown과 한글(HWPX) 파일로 저장된다. 완성된 문서와 근거 발췌집은 **바탕화면 `행정지원\날짜 주제\` 폴더**에도 자동으로 복사된다(바탕화면이 OneDrive와 동기화되면 처음 한 번 묻는다). HWPX는 한글 2014 이상에서 바로 열리고, HWP로 다시 저장할 수 있다. DOCX가 필요하면 `profile.md`의 출력 형식을 바꾼다.
 
 ### 자료함 검색 (`/policy-research`)
 
@@ -64,7 +64,7 @@ uijeong/
 │   ├── mdparse.py          # Markdown → 문서 블록 (두 변환기 공용)
 │   ├── md2hwpx.py          # Markdown → 한글(HWPX)
 │   ├── md2docx.py          # Markdown → DOCX
-│   ├── save-to-desktop.ps1 # 결과물·발췌집을 바탕화면 '의정지원 문서' 폴더로 복사
+│   ├── save-to-desktop.ps1 # 결과물·발췌집을 바탕화면 '행정지원' 폴더로 복사
 │   └── requirements.txt
 ├── inbox/                  # 올린 자료 (git에 올리지 않음)
 └── outputs/                # 생성 문서
