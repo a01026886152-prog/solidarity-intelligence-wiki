@@ -6,6 +6,8 @@ uijeong/outputs/**/*.hwpx
 uijeong/outputs/research/
 # 검수AI 랑랑별의 검수 보고서는 PC에만 둔다 (결과는 문서 끝 '검수 기록'에 남는다)
 *.검수*.md
+# 근거 발췌집(자료함 원문 대목)은 어느 폴더에 있든 GitHub에 올리지 않는다
+*.발췌.md
 __pycache__/
 uijeong/web/test/build-data.json
 uijeong/web/test/out/

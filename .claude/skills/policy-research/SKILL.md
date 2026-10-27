@@ -88,6 +88,7 @@ description: 정책지원관 지원시스템 자료함의 자료와 일반 뉴�
 ## 7단계. 전달과 저장
 
 1. 답변은 대화창에 바로 보여 준다. 끝에 "근거 자료를 열거나 출력하려면 '근거 n번 열어줘'라고 하세요"를 한 줄 붙인다. 요청이 오면 `uijeong/knowledge/sakyowon-archive.md` 5절대로 찾아 연다.
-2. **답변은 항상 Markdown 파일로 저장한다.** 묻지 않고 `uijeong/outputs/research/YYYY-MM-DD-<주제>.md`에 저장하고(오늘 날짜), 저장한 경로를 알린다. 같은 날 같은 주제가 있으면 이름 끝에 `-2`, `-3`을 붙인다.
-3. **자료함 자료는 내부 자료일 수 있다.** 그래서 `uijeong/outputs/research/`는 `.gitignore`로 GitHub에 올리지 않는 폴더로 두었다. 이 폴더의 파일을 `git add -f`로 억지로 올리거나 다른 폴더로 옮겨 커밋하지 않는다. 사용자가 공유용으로 옮겨 달라고 하면, 비공개 자료의 원문 인용이 들어가도 되는지 묻고, 안 되면 원문 인용 대신 요약과 자료 제목만 남긴 사본을 만든다.
-4. 한글 파일이 필요하면 프로필의 **출력 형식**대로 변환한다: `python3 uijeong/scripts/md2hwpx.py <파일>.md`
+2. 자료함 자료를 근거로 썼으면 `uijeong/knowledge/sakyowon-archive.md`의 '근거 발췌집' 형식대로 `uijeong/outputs/research/YYYY-MM-DD-<주제>.발췌.md`도 저장한다. 근거마다 찾기어를 적는다.
+3. **답변은 항상 Markdown 파일로 저장한다.** 묻지 않고 `uijeong/outputs/research/YYYY-MM-DD-<주제>.md`에 저장하고(오늘 날짜), 저장한 경로를 알린다. 같은 날 같은 주제가 있으면 이름 끝에 `-2`, `-3`을 붙인다.
+4. **자료함 자료는 내부 자료일 수 있다.** 그래서 `uijeong/outputs/research/`는 `.gitignore`로 GitHub에 올리지 않는 폴더로 두었다. 이 폴더의 파일을 `git add -f`로 억지로 올리거나 다른 폴더로 옮겨 커밋하지 않는다. 사용자가 공유용으로 옮겨 달라고 하면, 비공개 자료의 원문 인용이 들어가도 되는지 묻고, 안 되면 원문 인용 대신 요약과 자료 제목만 남긴 사본을 만든다.
+5. 한글 파일이 필요하면 프로필의 **출력 형식**대로 변환한다: `python3 uijeong/scripts/md2hwpx.py <파일>.md`
