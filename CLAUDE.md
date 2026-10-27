@@ -36,7 +36,7 @@
 
 - 의정지원 작업(`uijeong/`, `.claude/skills/`의 스킬)을 마치면 결과를 항상 Markdown 파일로 `uijeong/outputs/<문서유형>/YYYY-MM-DD-<주제>.md`에 저장하고, 저장한 경로를 알린다. 한글(HWPX) 등 다른 형식은 그 Markdown에서 만든다.
 - 자료함(정책지원관 지원시스템) 내용이 들어간 결과는 `uijeong/outputs/research/`에 둔다. 이 폴더는 GitHub에 올리지 않는다.
-- **바탕화면에도 저장한다.** 문서를 완성하면(랑랑별 검수와 검수 기록까지 끝난 뒤) 묻지 않고 그 문서와 근거 발췌집을 바탕화면 `의정지원 문서\YYYY-MM-DD <주제>\` 폴더에 복사한다. Windows PC 세션에서만 한다.
+- **바탕화면에도 저장한다.** 문서를 완성하면(랑랑별 검수와 검수 기록까지 끝난 뒤) 묻지 않고 그 문서와 근거 발췌집을 바탕화면 `행정지원\YYYY-MM-DD <주제>\` 폴더에 복사한다. Windows PC 세션에서만 한다.
   1. 복사할 것: 문서 `.md`, 같은 이름의 `.hwpx`·`.docx`(있으면), 발췌집 `.발췌.md`(있으면). 발췌집도 출력할 수 있게 `python3 uijeong/scripts/md2hwpx.py <발췌집>.md`로 `.hwpx`를 만들어 함께 복사한다(파이썬이 없으면 건너뛰고 알린다).
   2. 명령: `powershell -NoProfile -ExecutionPolicy Bypass -File uijeong/scripts/save-to-desktop.ps1 -Name "YYYY-MM-DD <주제>" <파일들>`
   3. 출력의 `SAVED:` 경로를 사용자에게 알린다. 실패하면 이유와 저장소 안 경로를 알린다.
