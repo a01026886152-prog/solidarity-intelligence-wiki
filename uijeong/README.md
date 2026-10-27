@@ -57,7 +57,8 @@ uijeong/
 ├── profile.md              # 사용자 설정 (관점, 의원명, 어조, 출력)
 ├── knowledge/
 │   ├── committee-2026.md   # 위원회 구성·소관 기관·일정
-│   └── legal-basis.md      # 근거 법령 참고표, 상위법 저촉 체크리스트
+│   ├── legal-basis.md      # 근거 법령 참고표, 상위법 저촉 체크리스트
+│   └── sakyowon-archive.md # 사교원 행감 자료실 구조, 근거 표기·문건 찾기·출력
 ├── scripts/
 │   ├── extract.py          # HWP/HWPX/PDF/DOCX → 텍스트
 │   ├── mdparse.py          # Markdown → 문서 블록 (두 변환기 공용)
