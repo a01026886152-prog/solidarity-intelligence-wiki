@@ -2,7 +2,7 @@
 
 > 작성일: 2026-10-31 | 작성: 사용자(랑랑) + 총비서 해일심(Claude) | 검수: 랑랑별
 > 저장소: https://github.com/a01026886152-prog/solidarity-intelligence-wiki
-> 작업 브랜치: `claude/determined-tesla-qdpw9g` (PR 없음, master에 안 합침). 오후 비교·평가와 레슨 6~12는 `claude/quirky-ride-j6h16z`에서 이 파일(위 브랜치 최신판을 복사)에 덧붙임
+> 작업 브랜치: 오전 `claude/determined-tesla-qdpw9g`(PR 없음, master에 안 합침), 오후 `claude/quirky-ride-j6h16z` → [PR #15](https://github.com/a01026886152-prog/solidarity-intelligence-wiki/pull/15). 오후 비교·평가와 레슨 6~12는 오전 브랜치 최신판 파일을 복사해 덧붙임
 > 사교원 의정지원 시스템: `https://talk.sakyowon.co.kr/system` (로그인 필요)
 > 직전 핸드오버: [`docs/handover-uijeong-2026-10-27.md`](handover-uijeong-2026-10-27.md)
 > 작업 기간: 2026-10-28 ~ 10-31, 클라우드 세션(사교원 자료실·기사 사이트 접속 불가)
@@ -21,7 +21,7 @@
 | (커밋 안 함, research 폴더) | 최종본 9편 저장: `uijeong/outputs/research/final-2026/` |
 | `f5b4fd3` `78c84d8` | `.claude/skills/audit-issue-report/questionnaire-form.md` 맨 앞에 '2026 행감 최종본 구성'과 '주제 고르는 법' 추가(사용자 "이걸 기억해" 요청) |
 | `1eb55f8` (오후, `claude/quirky-ride-j6h16z`) | 질의서 양식 '2026 행감 최종본 구성' 절: 주제 고르는 법 3줄, 지키는 것 7~16번(13~16번은 사용자 지정: 같은 기관 최종본 먼저, 쟁점 출처, 숫자 뒤 사람·문서 간 불일치, 보도는 자료실에 없는 사실에만) |
-| (오후, 같은 브랜치) | 위키 how-to `wiki/how-to/audit-questionnaire-with-ai.md`(오전 초안을 옛 브랜치에서 가져와 5단계 '작업본과 최종본 비교' 덧붙임) |
+| `668f0c9` / [PR #15](https://github.com/a01026886152-prog/solidarity-intelligence-wiki/pull/15) | 위키 how-to `wiki/how-to/audit-questionnaire-with-ai.md`(오전 초안을 옛 브랜치에서 가져와 5단계 '작업본과 최종본 비교' 덧붙임) |
 | (커밋 안 함, research 폴더) — 같은 날 오후 새 클라우드 세션(`claude/quirky-ride-j6h16z`) | 사용자가 최종본 9편과 PC 세션 작업본 9편을 올려 **문단별 비교·평가**: `uijeong/outputs/research/2026-10-31-final-2026-vs-drafts.md`. 아래 레슨 6~12의 근거 |
 
 ## 내린 결정과 이유
@@ -60,7 +60,7 @@
 
 ## 다음에 이어서 할 때
 
-첫 메시지 예시: `10-31 핸드오버 읽고, 남은 작업 1번(작업 브랜치 정리)부터 하자`
+첫 메시지 예시: `10-31 핸드오버 읽고, 남은 작업 1번(옛 작업 브랜치 정리)부터 하자` — PR #15를 합친 뒤라면 PC에서 `git pull` 먼저
 
 ---
 
