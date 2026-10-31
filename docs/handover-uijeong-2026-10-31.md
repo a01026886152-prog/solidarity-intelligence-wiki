@@ -39,7 +39,7 @@
 | 최종본 질의서 9편(주택실 3, SH 4, 디지털도시국 1, AI재단 1) — PC·이 세션에만 있음 | `uijeong/outputs/research/final-2026/` |
 | 최종본 구성·주제 고르는 법(구체 예시는 일반 표현으로 바꿈) | `.claude/skills/audit-issue-report/questionnaire-form.md` '2026 행감 최종본 구성' 절 |
 | 한강버스 질의서 작업판·발췌집(.md·.hwpx) — 이 클라우드 세션에만 있음 | `uijeong/outputs/research/2026-10-28-sh-hangang-bus-loan*.md`·`.hwpx` |
-| 10-21 쟁점보고서 수정판 | 오전 작업 브랜치에만 있었음(브랜치 삭제됨). 사본: 오후 클라우드 세션의 `uijeong/outputs/research/drafts-github/2026-10-21-housing-office-sh.fd11caf.md`(GitHub 제외, 세션이 끝나면 사라짐). 커밋 `fd11caf`가 GitHub에 남아 있는 동안은 `https://github.com/a01026886152-prog/solidarity-intelligence-wiki/commit/fd11caf`로 볼 수 있음 |
+| 10-21 쟁점보고서 수정판 | 오전 작업 브랜치에만 있었음(브랜치 삭제됨). 사본: 오후 클라우드 세션의 `uijeong/outputs/research/drafts-github/2026-10-21-housing-office-sh.fd11caf.md`(GitHub 제외, 세션이 끝나면 사라짐). PC에 필요하면 다음 클라우드 세션에서 사용자에게 다시 받는다 |
 | 한글 서식 틀에 내용을 채우는 스크립트(작업용, 커밋 안 함) | 이 세션 스크래치 폴더 `build2.py` — 세션이 끝나면 사라짐 |
 
 ## 남은 작업
